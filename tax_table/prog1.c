@@ -2,7 +2,7 @@
 
 int main(){
 
-    //iniciar variaveis
+    //INITIALIZE VARIABLES
     int total = 100;
     int IVA = 18;
     int IRS = 10;
