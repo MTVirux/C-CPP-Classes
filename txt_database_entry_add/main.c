@@ -19,7 +19,7 @@ int string_to_int(char str[]){
     return result;
 }
 
-int main(){
+void add_entry(){
 
     //INITIAL DECLARATIONS
     char entry_line[LINE_SIZE] = "";
@@ -27,6 +27,7 @@ int main(){
     char answer_buffer[LINE_SIZE];
     int int_answer_buffer;
     int max_current_index;
+    char temp;
 
     //STRUCTURE OF ENTRY
     struct entry{
@@ -62,7 +63,8 @@ int main(){
 
     //USER INPUT FOR STRUCT INFO
     printf("Qual o nome que deseja adicionar?\n");
-    scanf("%[^\n]%*c", answer_buffer); 
+    scanf("%c",&temp);// REQUIRED TO CLEAR BUFFER FROM MENU INT INPUT
+    scanf("%[^\n]", &answer_buffer); 
     strcpy(new_entry.nome, answer_buffer);
     printf("Qual a idade?\n");
     scanf("%d",&int_answer_buffer);
@@ -108,6 +110,59 @@ int main(){
 
     fclose(ficheiro);
 
-    
+    return;
 
 }
+void read_table(){
+
+    FILE * ficheiro;
+    ficheiro = fopen("database.txt", "r+");
+    rewind(ficheiro);
+    char current_char = fgetc(ficheiro);
+    
+    printf("--------READING DATABASE---------\n");
+
+    while (current_char != EOF){
+        printf("%c", current_char);
+        current_char = fgetc(ficheiro);
+    }
+
+    printf("\n----------------EOF----------------");
+
+    return;
+}
+
+int main(){
+
+
+    int resposta;
+
+    printf("Selecione a opção que deseja:\n");
+    printf("1- Adicionar entrada\n");
+    printf("2- Ver base de dados\n");
+    printf("3- Sair\n");
+    scanf("%d", &resposta); 
+
+    switch(resposta){
+
+        case 1:
+            add_entry();
+            break;
+
+        case 2:
+            read_table();
+            break;
+
+        case 3:
+            break;
+
+        default:
+            printf("OPCAO NAO RECONHECIDA\n");
+            main();
+            break;
+    }
+
+
+}
+
+
