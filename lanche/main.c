@@ -9,6 +9,8 @@ void screenclear(){
 
 }
 
+
+
 void show(const char* artigo, float preco, int quantidade){
 
     float valor = preco * quantidade;
@@ -25,6 +27,7 @@ int main(){
     float preco;
     float final;
     char* artigo;
+
     
     while (codigo >= 100){
 
