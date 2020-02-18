@@ -2,9 +2,17 @@
 
 int main(){
 
-    int vector_lenght = 10;
+    //Define array lenght
+    int vector_lenght;
+    //Initialize array lenght variable
+    printf("Quantos ints quer no array?");
+    scanf("%d" , &vector_lenght);
+
+    //Define array
     int vector[vector_lenght];
-    int maior;
+    int maior = 0;
+
+    printf("%d")
 
     for (int i = 0; i < vector_lenght; i++){
 
@@ -18,7 +26,14 @@ int main(){
 
     }
 
-    printf("O maior e: %d", maior);
+    printf("***********\n");
+
+    for (int i = 0; i < vector_lenght; i++){
+
+        printf("%d\n", vector[i]);
+    }
+
+    printf("\nO maior e: %d", maior);
 
 
 }
