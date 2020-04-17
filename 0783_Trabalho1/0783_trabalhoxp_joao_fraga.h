@@ -20,9 +20,11 @@ class trabalho{
         void terminar();
         void separator();
         void screen_clear();
+        float reducao_preco(float valor, float percentagem);
 
         vector<string> fatura;
         float total = 0;
+        int pessoas = 0;
 
 };
 

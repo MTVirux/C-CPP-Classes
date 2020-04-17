@@ -2,6 +2,10 @@
 
 using namespace std;
 
+float trabalho::reducao_preco(float preco, float percentagem){
+    return preco - ((preco/100)*percentagem);
+}
+
 
 void trabalho::separator(){
     cout << "------------------------------------" << endl;
@@ -9,7 +13,9 @@ void trabalho::separator(){
 
 void trabalho::screen_clear(){
 
-    cout << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl;
+    for (int i = 0; i < 30; i++){
+        cout << endl;
+    }
 
 }
 
@@ -24,7 +30,7 @@ void trabalho::add_to_fatura(string servico, float preco){
     string_to_add.append(" euros");
     cout << "A adicionar: " << string_to_add << endl;
     fatura.push_back(string_to_add);
-    total = total + preco;
+    trabalho::total = trabalho::total + preco;
     return;
 
 }
@@ -67,7 +73,7 @@ void trabalho::trabalho::servicos(){
         case 3:
             cout << "Quantos dias vai querer alugar o automovel?" << endl;
             cin >> dias;
-            add_to_fatura("Aluguer de automoveis por " + to_string(dias) + " dias", 25*dias);
+            add_to_fatura("Aluguer de automovel por " + to_string(dias) + " dias", 25*dias);
         
         default:
             break;
@@ -78,6 +84,7 @@ void trabalho::trabalho::servicos(){
 
 void trabalho::experiencias() {
     int menu;
+    int guia;
 
     screen_clear();
 
@@ -85,21 +92,28 @@ void trabalho::experiencias() {
     cout << "2- Visita as grutas - 75" << endl;
     cout << "3- Passeio de barco (dia completo) - 150" << endl;
     cout << "4- Whale watching - 55" << endl;
-    cin >>menu;cin.ignore();
+    cin >>menu; cin.ignore();
+
+    cout << "Deseja guia?" << endl;
+    cout << "1- Sim" << endl;
+    cout << "2- Nao" << endl;
+    cin >> guia; cin.ignore();
+
+    guia = guia - 1;
 
     switch(menu){
 
         case 1:
-            add_to_fatura("Safari", 250);
+            add_to_fatura("Safari", guia ? reducao_preco(75,15) : 75);
             break;
         case 2:
-            add_to_fatura("Visita as grutas", 75);
+            add_to_fatura("Visita as grutas", guia ? reducao_preco(75,15) : 75 );
             break;
         case 3:
-            add_to_fatura("Passeio de barco (dia completo)", 150);
+            add_to_fatura("Passeio de barco (dia completo)", guia ? reducao_preco(150,15) : 150);
             break;
         case 4:
-            add_to_fatura("Whale watching", 55);
+            add_to_fatura("Whale watching", guia ? reducao_preco(55,15) : 55);
             break;
         default:
             break;
@@ -111,6 +125,8 @@ void trabalho::experiencias() {
 void trabalho::terminar(){
     
     int menu;
+    float subtotal = total * pessoas;
+    float total_ponderado;
 
     screen_clear();
 
@@ -119,8 +135,30 @@ void trabalho::terminar(){
     }
 
     separator();
-    cout << "Total: " << total << endl;
-    cout << "O valor esta correto?" << endl;
+
+    cout << "Subtotal: " << total * pessoas << endl;
+
+    if(pessoas >= 6){
+
+        total_ponderado = reducao_preco(subtotal, 45);
+        cout << "Desconto: -45% (6 ou mais pessoas)" << endl;
+
+    }else if(fatura.size() >= 4){
+        
+        total_ponderado = reducao_preco(subtotal, 50);
+        cout << "Desconto: -50% (4 ou mais serviços/experiencias)" << endl;
+
+    }else if (fatura.size() >= 2){
+
+        total_ponderado = reducao_preco(subtotal, 25);
+        cout << "Desconto: -25% (2 ou 3 serviços / experiencias)" << endl;
+    }
+
+    cout << "Total: " << total_ponderado << endl;
+    
+    separator();
+
+    cout << "Confirmar Compra?" << endl;
     cout << "1- Sim" << endl;
     cout << "2- Nao" << endl;
     cin >> menu; cin.ignore();
@@ -142,13 +180,24 @@ void trabalho::main(){
     int menu;
 
     screen_clear();
+
+    if(pessoas <= 0){
+        cout << "Quantas pessoas tem o seu grupo?" << endl;
+        cin >> trabalho::pessoas; cin.ignore();
+    }
+
+    screen_clear();
     
     for (string i : fatura){
-        cout.precision(2);
         cout << i << endl;
     }
+
     separator();
-    cout << "Total: " << total << endl<
+    
+    cout << "Pessoas: " << to_string(pessoas) << endl;
+    cout << std::fixed << std::setprecision(2) <<"Subtotal: " << total << endl;
+    cout << std::fixed << std::setprecision(2) <<"Subtotal x Pessoas: " << total * pessoas << endl;
+
     
     cout << "O que pretende adicionar a fatura?" << endl;
     cout << "1- Servicos" << endl;
