@@ -1,0 +1,62 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+
+    string nome;
+
+    int a = 0;
+    int e = 0;
+    int i = 0;
+    int o = 0;
+    int u = 0;
+
+    int count = 0;
+
+    cout << "Insira o seu nome: " << endl;
+    getline(cin, nome);
+
+    for (int i = 0; i != nome.length(); i++){
+        char letra = nome[i];
+
+        switch(nome[i])
+        {
+            case 'a':
+            case 'A':
+                a++;
+                break;
+
+            case 'e':
+            case 'E':
+                e++;
+                break;
+
+            case 'i':
+            case 'I':
+                i++;
+                break;
+
+            case 'o':
+            case 'O':
+                o++;
+                break;
+
+            case 'u':
+            case 'U':
+                u++;
+                break;
+            default:
+                break;
+        }
+    }
+    cout << "Numeros de letras:" << endl;
+    cout << "A: " << a << endl;
+    cout << "E: " << e << endl;
+    cout << "I: " << i << endl;
+    cout << "O: " << o << endl;
+    cout << "U: " << u << endl;
+
+}
